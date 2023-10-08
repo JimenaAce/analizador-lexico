@@ -52,11 +52,16 @@ public class Scanner {
 
     public List<Token> scan() throws Exception {
         int estado = 0;
+        int linea = 1;
         String lexema = "";
         char c;
 
         for (int i = 0; i < source.length(); i++) {
             c = source.charAt(i);
+            
+            if(c == '\n'){
+                linea ++;
+            }
 
             switch (estado) {
                 case 0: // Estado inicial
@@ -478,7 +483,7 @@ public class Scanner {
         }
         // Si no se está en Estado de aceptación se manda un Error...
         if (estado != 0)
-            Interprete.error(0, lexema);
+            Interprete.error(linea, lexema);
 
         return tokens;
     }
